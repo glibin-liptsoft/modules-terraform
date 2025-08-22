@@ -1,0 +1,32 @@
+global:
+  domain: ${argocd_domain}
+  image:
+    tag: "${argocd_tag}"
+  logging:
+      format: json
+      level: info
+
+configs:
+  params:
+    server.insecure: true
+  secret:
+    argocdServerAdminPassword: "${argocd_admin_password}"
+%{~ if length(argocd_repositories) > 0 }
+  repositories:
+    ${indent(4, argocd_repositories)}
+%{~ endif ~}
+
+server:
+  ingress:
+    enabled: true
+%{~ if length(argocd_ingress_annot) > 0 }
+    annotations:
+      ${indent(6, argocd_ingress_annot)}
+%{~ endif }
+    ingressClassName: "${argocd_ingress_class}"
+    hosts: "${argocd_domain}"
+    paths: /
+    # -- Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific`
+    pathType: Prefix
+    extraPaths: []
+    tls: ${argocd_ingress_tls}
