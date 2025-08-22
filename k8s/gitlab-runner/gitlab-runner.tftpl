@@ -1,0 +1,49 @@
+checkInterval: 10
+concurrent: ${concurrent}
+gitlabUrl: ${gitlab_url}
+image:
+  registry: ${gitlab_runner_registry}
+  image: ${gitlab_runner_image}
+  tag: ${gitlab_runner_tag}
+runnerToken: ${gitlab_token}
+runners:
+  config: |
+    [[runners]]
+      [runners.kubernetes]
+        cpu_limit = "${cpu_lim}"
+        cpu_request = "${cpu_req}"
+        memory_limit = "${mem_lim}"
+        memory_request = "${mem_req}"        
+        helper_cpu_limit = "${help_cpu_lim}"
+        helper_cpu_request = "${help_cpu_req}"
+        helper_memory_limit = "${help_mem_lim}"
+        helper_memory_request = "${help_mem_req}"
+        helper_image= "${help_image}"
+        namespace = "{{.Release.Namespace}}"
+        image = "${image}"
+        service_account = "${service_account}"
+        privileged = true
+resources:
+  limits:
+    memory: 128Mi
+    cpu: 100m
+  requests:
+    memory: 128Mi
+    cpu: 100m
+serviceAccount:
+  create: true
+  name: "${service_account}"
+rbac:
+  create: true
+  clusterWideAccess: true
+  ${rbac_rules}
+
+%{~ if length(tolerations) > 0 }
+tolerations:
+  ${indent(4, tolerations)}
+%{~ endif }
+
+%{~ if length(affinity) > 0 }
+affinity:
+  ${indent(4, affinity)}
+%{~ endif }
