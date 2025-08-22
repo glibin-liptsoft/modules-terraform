@@ -1,0 +1,143 @@
+rbac:
+  create: true
+controller:
+  kind: ${ingress_controller_kind}
+  replicaCount: ${ingress_replicas_count}
+  extraArgs:
+    update-status: "${extra_update_status}"
+%{~ if length(affinity) > 0 }
+  affinity:
+    ${indent(4, affinity)}
+%{~ endif }
+%{~ if length(tolerations) > 0 }
+  tolerations:
+    ${indent(4, tolerations)}
+%{~ endif }
+  ingressClassResource:
+    name: ${ingress_class}
+    controllerValue: "k8s.io/ingress-${ingress_class}"
+  ingressClass: ${ingress_class}
+  service:
+    loadBalancerIP: ${load_balancer_ip}
+    externalTrafficPolicy: Local
+%{~ if load_balancer_annotations != null }
+    annotations: ${jsonencode(load_balancer_annotations)}
+%{~ endif }
+  config:
+%{~ if enable_nexus_maps == true }
+    http-snippet: |
+      map $upstream_http_location $upstream_docker_version {
+        "~^(http(s)?:/)?(/[-_:0-9a-z\.]+)?/(?<version>v1|v2)/([-_0-9a-z\.]+)/(.*)$" $version;
+      }
+      map $upstream_http_location $upstream_docker_repo_name {
+        "~^(http(s)?:/)?(/[-_:0-9a-z\.]+)?/(v1|v2)/(?<repo_name>[-_0-9a-z\.]+)/(.*)$" $repo_name;
+      }
+      map $upstream_http_location $upstream_docker_rest_uri {
+        "~^(http(s)?:/)?(/[-_:0-9a-z\.]+)?/(v1|v2)/([-_0-9a-z\.]+)/(?<rest_uri>.*)$" $rest_uri;
+      }
+      map $uri $docker_repo_name_in {
+        "~^/repository/(?<repo_name>[-_0-9a-z\.]+)/(v1|v2)/(.*)$" $repo_name;
+      }
+      map $upstream_docker_repo_name:$docker_repo_name_in $response_header_location {
+        "~^(.*):\1$" $upstream_http_location;
+        default /$upstream_docker_version/$docker_repo_name_in/$upstream_docker_repo_name/$upstream_docker_rest_uri;
+      }
+%{~ endif }
+%{~ if allow_snippet_annotations == true }
+    allow-snippet-annotations: true
+%{~ endif }
+    enable-real-ip: ${enable_real_ip}
+    use-forwarded-headers: ${use_forwarded_headers}
+    use-proxy-protocol: "${use_proxy_protocol}"
+%{~ if proxy_real_ip_cidrs != null }
+    proxy-real-ip-cidr: "${proxy_real_ip_cidrs}"
+%{~ endif }
+    proxy-connect-timeout: ${proxy_connect_timeout}
+    proxy-read-timeout: ${proxy_read_timeout}
+    proxy-send-timeout: ${proxy_send_timeout}
+%{~ if proxy_real_ip_cidrs != null }
+    custom-http-errors: "${custom_http_errors}"
+%{~ endif }
+    log-format-escape-json: "true"
+    log-format-upstream: '${replace(log_format_upstream, "\n", "")}'
+  metrics:
+    port: 10254
+    enabled: true
+%{~ if metrics_service_conf != null }
+    service:
+      type: "${metrics_service_conf.type}"
+      annotations: ${jsonencode(metrics_service_conf.annotations)}
+      loadBalancerIP: "${metrics_service_conf.loadBalancerIP}"
+      externalTrafficPolicy: Local
+%{~ endif }
+  resources:
+    requests:
+      cpu: 100m
+      memory: 90Mi
+  admissionWebhooks:
+    createSecretJob:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 20Mi
+    patchWebhookJob:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 20Mi
+%{~ if length(tolerations) > 0 }
+    patch:
+      tolerations:
+        ${indent(8, tolerations)}
+%{~ endif }
+%{ if default_backend_override == true ~}
+defaultBackend:
+  enabled: true
+  image:
+    registry: registry.k8s.io
+    image: ingress-nginx/nginx-errors
+    tag: "1.3.0"
+  extraVolumes:
+  - name: custom-error-pages
+    configMap:
+      name: custom-error-pages
+      items:
+      - key: "404"
+        path: "404.html"
+      - key: "502"
+        path: "502.html"
+      - key: "503"
+        path: "503.html"
+      - key: "504"
+        path: "504.html"
+  extraVolumeMounts:
+  - name: custom-error-pages
+    mountPath: /www
+  resources:
+    requests:
+      cpu: 100m
+      memory: 50Mi
+%{~ if length(affinity) > 0 }
+  affinity:
+    ${indent(4, affinity)}
+%{~ endif }
+%{~ if length(tolerations) > 0 }
+  tolerations:
+    ${indent(4, tolerations)}
+%{~ endif }
+%{ else ~}
+defaultBackend:
+  enabled: true
+  resources:
+    requests:
+      cpu: 100m
+      memory: 50Mi
+%{~ if length(affinity) > 0 }
+  affinity:
+    ${indent(4, affinity)}
+%{~ endif }
+%{~ if length(tolerations) > 0 }
+  tolerations:
+    ${indent(4, tolerations)}
+%{~ endif }
+%{~ endif }
