@@ -1,0 +1,62 @@
+apiVersion: external-secrets.io/v1alpha1
+kind: ClusterSecretStore
+metadata:
+  name: example2
+spec:
+  provider:
+    yandexcertificatemanager:
+      auth:
+        authorizedKeySecretRef:
+          namespace: external-secret
+          name: sa-creds
+          key: key
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: external-secret
+  namespace: external-secret
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: example
+    kind: ClusterSecretStore
+  target:
+    name: k8s-secret
+  data:
+  - secretKey: password
+    remoteRef:
+      key: 'e6q9d41o9f2t6ujg02pt'
+      property: testkey
+---
+apiVersion: external-secrets.io/v1beta1
+kind: SecretStore
+metadata:
+  name: secret-store
+  namespace: external-secret
+spec:
+  provider:
+    yandexlockbox:
+      auth:
+        authorizedKeySecretRef:
+          namespace: external-secret
+          name: sa-creds
+          key: key
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: external-secret
+  namespace: external-secret
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: secret-store
+    kind: SecretStore
+  target:
+    name: k8s-secret
+  data:
+  - secretKey: password
+    remoteRef:
+      key: 'e6q9d41o9f2t6ujg02pt'
+      property: testkey
