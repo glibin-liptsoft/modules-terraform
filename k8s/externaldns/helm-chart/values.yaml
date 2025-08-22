@@ -1,0 +1,12 @@
+config:
+    auth:
+        json: |
+            {}
+    folder_id: string
+    txt_owner_id: external-dns
+    txt_prefix: external-dns
+    zones: []
+image:
+    pullPolicy: Always
+    repository: cr.yandex/yc-marketplace/yandex-cloud/externaldns/externaldns1740381704064773431763120350102291379936788013545
+    tag: 0.5.1
