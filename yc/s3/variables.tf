@@ -481,6 +481,7 @@ variable "lifecycle_rule" {
       prefix                                 - (Optional) Object key prefix identifying one or more objects to which the rule applies.
       abort_incomplete_multipart_upload_days - (Optional) Specifies the number of days after initiating a multipart upload when the multipart upload must be completed.
       expiration                             - (Optional) Specifies a period in the object's expire.
+      filter                                 - (Optional) A Filter must have exactly one of Prefix, Tag, or And specified. The filter supports options listed below.
       transition                             - (Optional) Specifies a period in the object's transitions.
       noncurrent_version_expiration          - (Optional) Specifies when noncurrent object versions expire.
       noncurrent_version_transition          - (Optional) Specifies when noncurrent object versions transitions.
@@ -491,6 +492,24 @@ variable "lifecycle_rule" {
       date                         - (Optional) Specifies the date after which you want the corresponding action to take effect.
       days                         - (Optional) Specifies the number of days after object creation when the specific rule action takes effect.
       expired_object_delete_marker - (Optional) On a versioned bucket (versioning-enabled or versioning-suspended bucket), you can add this element in the lifecycle configuration to direct Object Storage to delete expired object delete markers.
+    
+    The `filter` object supports the following attributes:
+      object_size_greater_than          - (Optional)
+      object_size_less_than             - (Optional)
+      prefix                            - (Optional)
+      tag                               - (Optional)
+      and                               - (Optional)
+
+      The `tag` object supports the following attributes:
+        key                 - (Optional)
+        value               - (Optional)
+
+      The `and` object supports the following attributes:
+        object_size_greater_than          - (Optional)
+        object_size_less_than             - (Optional)
+        prefix                            - (Optional)
+        tags                              - (Optional)
+
 
     The `transition` object supports the following attributes:
       date          - (Optional) Specifies the date after which you want the corresponding action to take effect.
@@ -514,6 +533,24 @@ variable "lifecycle_rule" {
       date                         = optional(string)
       days                         = optional(number)
       expired_object_delete_marker = optional(bool)
+    }))
+    filter = optional(object({
+      object_size_greater_than = optional(number)
+      object_size_less_than = optional(number)
+      prefix = optional(string)
+      tag = optional(object({
+        key          = optional(string)
+        value          = optional(string)
+      }))
+      and = optional(object({
+        object_size_greater_than = optional(number)
+        object_size_less_than = optional(number)
+        prefix = optional(string)
+        tags = optional(object({
+          key          = optional(string)
+          value          = optional(string)
+        }))
+      }))
     }))
     transition = optional(object({
       date          = optional(string)

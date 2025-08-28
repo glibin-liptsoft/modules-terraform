@@ -144,6 +144,38 @@ resource "yandex_storage_bucket" "this" {
         }
       }
 
+      dynamic "filter" {
+        for_each = range(lifecycle_rule.value.filter != null ? 1 : 0)
+        content {
+          object_size_greater_than     = lifecycle_rule.value.filter.object_size_greater_than
+          object_size_less_than        = lifecycle_rule.value.filter.object_size_less_than
+          prefix                       = lifecycle_rule.value.filter.prefix
+          dynamic "tag" {
+            for_each = range(lifecycle_rule.value.filter.tag != null ? 1 : 0)
+            content  {
+              key = lifecycle_rule.value.filter.tag.key
+              value = lifecycle_rule.value.filter.tag.value
+            }
+          }
+          dynamic "and" {
+            for_each = range(lifecycle_rule.value.filter.and != null ? 1 : 0)
+            content  {
+              object_size_greater_than  = lifecycle_rule.value.filter.and.object_size_greater_than
+              object_size_less_than     = lifecycle_rule.value.filter.and.object_size_less_than
+              prefix                    = lifecycle_rule.value.filter.and.prefix
+              tags                      = lifecycle_rule.value.filter.and.tags
+              # dynamic "tags" {
+              #   for_each = range(lifecycle_rule.value.filter.and.tags != null ? 1 : 0)
+              #   content  {
+              #     key = lifecycle_rule.value.filter.and.tags.key
+              #     value = lifecycle_rule.value.filter.and.tags.value
+              #   }
+              # }
+            }
+          }
+        }
+      }
+
       dynamic "noncurrent_version_expiration" {
         for_each = range(lifecycle_rule.value.noncurrent_version_expiration != null ? 1 : 0)
         content {
