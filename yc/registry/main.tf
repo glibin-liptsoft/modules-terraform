@@ -21,6 +21,14 @@ resource "yandex_container_registry_iam_binding" "this" {
   members     = each.value.members
 }
 
+resource "yandex_container_registry_ip_permission" "this" {
+  count       = length(var.ip_permission.push) > 0 || length(var.ip_permission.pull) > 0 ? 1 : 0
+  registry_id = yandex_container_registry.this.id
+  push        = var.ip_permission.push
+  pull        = var.ip_permission.pull
+}
+
+
 #############
 ## Repository
 #############
@@ -57,3 +65,4 @@ resource "yandex_container_repository_lifecycle_policy" "this" {
     }
   }
 }
+

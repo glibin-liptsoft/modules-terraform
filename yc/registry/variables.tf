@@ -24,3 +24,15 @@ variable "repos" {
   type        = map(any)
   default     = {}
 }
+
+variable "ip_permission" {
+  description = "Repositories with role binding and lifecycle_policy"
+  type        = object({
+    push = optional(list(string))
+    pull = optional(list(string))
+  })
+  default     = {
+    push = []
+    pull = []
+  }
+}
