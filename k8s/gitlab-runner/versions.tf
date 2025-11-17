@@ -9,5 +9,9 @@ terraform {
       source  = "hashicorp/helm"
       version = ">= 3.0.0, < 4.0.0"
     }
+    yandex = {
+      source  = "yandex-cloud/yandex"
+      version = ">= 0.65, < 1.0"
+    }
   }
 }

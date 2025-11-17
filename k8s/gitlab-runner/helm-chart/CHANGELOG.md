@@ -1,20 +1,83 @@
-## v0.73.3 (2025-01-23)
+## v0.82.0 (2025-10-17)
 
 ### New features
 
-- Update GitLab Runner version to v17.8.3
+- Update GitLab Runner version to v18.5.0
 
-## v0.73.2 (2025-01-23)
-
-### New features
-
-- Update GitLab Runner version to v17.8.2
-
-## v0.73.1 (2025-01-18)
+## v0.81.0 (2025-09-18)
 
 ### New features
 
-- Update GitLab Runner version to v17.8.1
+- Update GitLab Runner version to v18.4.0
+
+### Maintenance
+
+- Chore(values): update ExternalSecret to v1 [!523](https://gitlab.com/gitlab-org/charts/gitlab-runner/-/merge_requests/523) (zadkiel @zadkiel)
+
+## v0.79.2 (2025-08-21)
+
+### New features
+
+- Update GitLab Runner version to v18.2.2
+
+## v0.79.1 (2025-07-28)
+
+### New features
+
+- Update GitLab Runner version to v18.2.1
+
+## v0.79.0 (2025-07-12)
+
+### New features
+
+- Update GitLab Runner version to v17.11.4
+
+## v0.76.3 (2025-06-11)
+
+### New features
+
+- Update GitLab Runner version to v17.11.3
+
+## v0.76.2 (2025-05-23)
+
+### New features
+
+- Update GitLab Runner version to v17.11.2
+
+## v0.76.1 (2025-05-05)
+
+### New features
+
+- Update GitLab Runner version to v17.11.1
+
+## v0.76.0 (2025-04-17)
+
+### New features
+
+- Update GitLab Runner version to v17.11.0
+
+## v0.75.0 (2025-03-14)
+
+### New features
+
+- Update GitLab Runner version to v17.10.0
+
+## v0.74.0 (2025-02-20)
+
+### New features
+
+- Update GitLab Runner version to v17.9.0
+- Add extra containers [!494](https://gitlab.com/gitlab-org/charts/gitlab-runner/-/merge_requests/494)
+
+### Bug fixes
+
+- Improve authentication token detection [!513](https://gitlab.com/gitlab-org/charts/gitlab-runner/-/merge_requests/513)
+
+### Maintenance
+
+- Update liveness and readiness probe doc [!512](https://gitlab.com/gitlab-org/charts/gitlab-runner/-/merge_requests/512)
+- Increase default period for livenessProbe [!511](https://gitlab.com/gitlab-org/charts/gitlab-runner/-/merge_requests/511)
+- Run CI jobs in kubernetes [!504](https://gitlab.com/gitlab-org/charts/gitlab-runner/-/merge_requests/504)
 
 ## v0.73.0 (2025-01-10)
 

@@ -80,16 +80,16 @@ variable "gitlab_runner_image" {
 
 variable "runner_config" {
   type = object({
-    cpu_lim = optional(string, "200m")
+    cpu_lim = optional(string, "500m")
     cpu_req = optional(string, "200m")
-    mem_lim= optional(string, "512Mi")
+    mem_lim= optional(string, "1Gi")
     mem_req= optional(string, "512Mi")
-    image  = optional(string, "docker:25.0.5-git")
+    image  = optional(string, "28.5.2-alpine3.22")
     help_cpu_lim= optional(string, "100m")
     help_cpu_req= optional(string, "100m")
     help_mem_lim= optional(string, "128Mi")
     help_mem_req= optional(string, "128Mi")
-    help_image  = optional(string, "registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:alpine3.19-x86_64-v17.9.0")
+    help_image  = optional(string, "registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:alpine3.21-x86_64-v{{.Chart.AppVersion}}")
   })
   description = "params for runners.kubernetes"
 }
