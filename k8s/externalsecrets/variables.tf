@@ -22,6 +22,7 @@ variable "custom_helm_values" {
 variable "sa_prefix" {
   type        = string
   description = "Prefix for ServiceAccount"
+  default = "k8s"
 }
 
 variable "cluster_secret_store_yandexlockbox" {
@@ -36,3 +37,16 @@ variable "cluster_secret_store_yandexcertificate" {
   default = false
 }
 
+variable "cluster_secret_store_vault_approle" {
+  type = map(object({
+    server          = string,
+    auth_path       = string,
+    namespace       = string,
+    role_name       = string,
+    role_key        = string,
+    secret_name     = string,
+    secret_key      = string
+  }))
+  description = "params ClusterSecretStore for valut auth appRole"
+  default = {}
+}
