@@ -32,6 +32,7 @@ resource "yandex_mdb_kafka_cluster" "this" {
         disk_size          = var.disk_size
       }
       kafka_config {
+        auto_create_topics_enable       = var.kafka_config.auto_create_topics_enable
         compression_type                = var.kafka_config.compression_type
         log_flush_interval_messages     = var.kafka_config.log_flush_interval_messages
         log_flush_interval_ms           = var.kafka_config.log_flush_interval_ms
