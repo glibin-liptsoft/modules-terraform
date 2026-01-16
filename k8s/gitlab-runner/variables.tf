@@ -90,6 +90,15 @@ variable "runner_config" {
     help_mem_lim= optional(string, "128Mi")
     help_mem_req= optional(string, "128Mi")
     help_image  = optional(string, "registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:alpine3.21-x86_64-v{{.Chart.AppVersion}}")
+    s3_cache    = optional(object({ 
+      path             = string
+      shared           = bool
+      server_address   = string
+      access_key       = string
+      secret_key       = string
+      bucket_name      = string
+      bucket_location  = string
+    }), null)
   })
   description = "params for runners.kubernetes"
 }

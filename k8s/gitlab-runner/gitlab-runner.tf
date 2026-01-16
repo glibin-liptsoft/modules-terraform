@@ -40,6 +40,7 @@ locals {
     help_mem_lim = var.runner_config.help_mem_lim
     help_mem_req = var.runner_config.help_mem_req
     help_image   = var.runner_config.help_image
+    s3_cache     = var.runner_config.s3_cache
     rbac_rules = var.rbac_rules
     service_account = var.name
 

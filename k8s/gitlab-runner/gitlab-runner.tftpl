@@ -23,6 +23,18 @@ runners:
         image = "${image}"
         service_account = "${service_account}"
         privileged = true
+%{~ if s3_cache != null }
+      [runners.cache]
+        Type = "s3"
+        Path = "${s3_cache.path}"
+        Shared = ${s3_cache.shared}
+        [runners.cache.s3]
+          ServerAddress = "${s3_cache.server_address}"
+          AccessKey = "${s3_cache.access_key}"
+          SecretKey = "${s3_cache.secret_key}"
+          BucketName = "${s3_cache.bucket_name}"
+          BucketLocation = "${s3_cache.bucket_location}"
+%{~ endif }
 resources:
   limits:
     memory: 128Mi
