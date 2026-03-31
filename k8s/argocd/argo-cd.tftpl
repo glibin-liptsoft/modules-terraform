@@ -8,7 +8,7 @@ global:
 
 configs:
   params:
-    server.insecure: true
+    server.insecure: "true"
   secret:
     argocdServerAdminPassword: "${argocd_admin_password}"
 %{~ if length(argocd_repositories) > 0 }
