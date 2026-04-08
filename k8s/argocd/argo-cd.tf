@@ -25,6 +25,9 @@ locals {
     argocd_domain             = var.argocd_domain
     argocd_tag                = var.argocd_tag
     argocd_admin_password     = var.argocd_admin_password
+    argocd_github_secret      = var.argocd_github_secret
+    argocd_gitlab_secret      = var.argocd_gitlab_secret
+    argocd_bitbucket_secret   = var.argocd_bitbucket_secret
     argocd_repositories       = var.argocd_repositories
     argocd_ingress_annot      = var.argocd_ingress_annot
     argocd_ingress_class      = var.argocd_ingress_class

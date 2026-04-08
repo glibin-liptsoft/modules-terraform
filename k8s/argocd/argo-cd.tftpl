@@ -10,6 +10,9 @@ configs:
   params:
     server.insecure: "true"
   secret:
+    githubSecret: "${argocd_github_secret}"
+    gitlabSecret: "${argocd_gitlab_secret}"
+    bitbucketServerSecret: "${argocd_bitbucket_secret}"
     argocdServerAdminPassword: "${argocd_admin_password}"
 %{~ if length(argocd_repositories) > 0 }
   repositories:

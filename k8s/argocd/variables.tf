@@ -35,6 +35,25 @@ variable "argocd_admin_password" {
   EOF
 }
 
+variable "argocd_github_secret" {
+  type        = string
+  default     = ""
+  description = "Token for webhook from github"
+}
+
+variable "argocd_gitlab_secret" {
+  type        = string
+  default     = ""
+  description = "Token for webhook from gitlab"
+}
+
+variable "argocd_bitbucket_secret" {
+  type        = string
+  default     = ""
+  description = "Token for webhook from bitbucket"
+}
+
+
 variable "argocd_repositories" {
   type        = string
   description = "repositories added in argocd"
