@@ -26,12 +26,12 @@ variable "repos" {
 }
 
 variable "ip_permission" {
-  description = "Repositories with role binding and lifecycle_policy"
-  type        = object({
+  description = "IP list allowed push or pull"
+  type = object({
     push = optional(list(string))
     pull = optional(list(string))
   })
-  default     = {
+  default = {
     push = []
     pull = []
   }

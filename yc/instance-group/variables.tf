@@ -317,7 +317,7 @@ variable "secondary_disks" {
   description = "Additional disks with params"
   type = map(object({
     enabled     = optional(bool, true)
-    description =  optional(string, "")
+    description = optional(string, "")
     labels      = optional(map(string), {})
     zone        = optional(string, null)
     size        = optional(number, 10)

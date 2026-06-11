@@ -6,9 +6,9 @@ resource "kubernetes_namespace" "this" {
 }
 
 resource "helm_release" "this" {
-  name       = var.name
-  chart      = "${path.module}/helm-chart"
-  namespace  = var.name
+  name      = var.name
+  chart     = "${path.module}/helm-chart"
+  namespace = var.name
 
   set_sensitive = [
     {
@@ -27,7 +27,7 @@ resource "helm_release" "this" {
       value = "${try(yandex_storage_bucket.default[0].id, "")}"
     }
   ]
-  
+
   values = [
     try(var.custom_helm_values),
   ]

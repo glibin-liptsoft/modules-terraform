@@ -82,14 +82,14 @@ resource "yandex_mdb_kafka_topic" "this" {
 
 ##Users
 resource "random_password" "password" {
- for_each         = { for v in var.users : v.name => v if v.password == null }
- length           = 16
- special          = true
- min_lower        = 1
- min_numeric      = 1
- min_special      = 1
- min_upper        = 1
- override_special = "_"
+  for_each         = { for v in var.users : v.name => v if v.password == null }
+  length           = 16
+  special          = true
+  min_lower        = 1
+  min_numeric      = 1
+  min_special      = 1
+  min_upper        = 1
+  override_special = "_"
 }
 resource "yandex_mdb_kafka_user" "this" {
   for_each   = { for user in var.users : user.name => user }

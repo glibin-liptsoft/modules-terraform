@@ -556,15 +556,15 @@ variable "custom_metadata" {
 }
 
 variable "create_sa" {
-  type        = bool
-  default     = true
+  type    = bool
+  default = true
 }
 
 variable "is_network_different_folder" {
-  type = bool
+  type    = bool
   default = false
 }
 variable "different_folder_id" {
-  type = string
+  type    = string
   default = ""
 }

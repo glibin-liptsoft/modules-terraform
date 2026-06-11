@@ -34,6 +34,7 @@ No modules.
 |------|------|
 | [yandex_container_registry.this](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/container_registry) | resource |
 | [yandex_container_registry_iam_binding.this](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/container_registry_iam_binding) | resource |
+| [yandex_container_registry_ip_permission.this](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/container_registry_ip_permission) | resource |
 | [yandex_container_repository.this](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/container_repository) | resource |
 | [yandex_container_repository_iam_binding.this](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/container_repository_iam_binding) | resource |
 | [yandex_container_repository_lifecycle_policy.this](https://registry.terraform.io/providers/yandex-cloud/yandex/latest/docs/resources/container_repository_lifecycle_policy) | resource |
@@ -43,6 +44,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_ip_permission"></a> [ip\_permission](#input\_ip\_permission) | Repositories with role binding and lifecycle\_policy | <pre>object({<br/>    push = optional(list(string))<br/>    pull = optional(list(string))<br/>  })</pre> | <pre>{<br/>  "pull": [],<br/>  "push": []<br/>}</pre> | no |
 | <a name="input_labels"></a> [labels](#input\_labels) | Container registry labels | `map(string)` | `{}` | no |
 | <a name="input_registry"></a> [registry](#input\_registry) | Container registry name | `string` | n/a | yes |
 | <a name="input_repos"></a> [repos](#input\_repos) | Repositories with role binding and lifecycle\_policy | `map(any)` | `{}` | no |

@@ -84,7 +84,7 @@ variable "network_interfaces" {
       nat_ip_address     = null
       security_group_ids = null
       dns_record         = []
-      nat_dns_record         = []
+      nat_dns_record     = []
     }
   ]
 }

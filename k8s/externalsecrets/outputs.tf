@@ -1,10 +1,10 @@
 output "namespace" {
-  value = "${var.name}"
+  value = var.name
 }
 
 output "acount_key" {
   sensitive = true
-  value = local.service_account_key
+  value     = local.service_account_key
 }
 
 output "lockbox_secretStore_name" {
@@ -16,7 +16,7 @@ output "certificate_secretStore_name" {
 }
 
 output "vault_approle_secretStore_name" {
-  value = length(var.cluster_secret_store_vault_approle) == 0 ? {} : { for name, key in kubernetes_manifest.cluster_secret_store_vault_approle : "mount ${name }" => "secret-store-vault-${name}-approle" }
+  value = length(var.cluster_secret_store_vault_approle) == 0 ? {} : { for name, key in kubernetes_manifest.cluster_secret_store_vault_approle : "mount ${name}" => "secret-store-vault-${name}-approle" }
 }
 
 # output "yandex_lockbox" {

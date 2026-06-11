@@ -6,7 +6,7 @@ variable "name" {
 variable "ns_labels" {
   type        = map(string)
   description = "Map with labels for k8s namespace"
-  default = {}
+  default     = {}
 }
 
 variable "custom_helm_values" {
@@ -65,7 +65,7 @@ variable "gitlab_runner_concurrent" {
 }
 
 variable "gitlab_runner_image" {
-  type        = object({
+  type = object({
     registry = string
     image    = string
     tag      = string
@@ -80,24 +80,24 @@ variable "gitlab_runner_image" {
 
 variable "runner_config" {
   type = object({
-    cpu_lim = optional(string, "500m")
-    cpu_req = optional(string, "200m")
-    mem_lim= optional(string, "1Gi")
-    mem_req= optional(string, "512Mi")
-    image  = optional(string, "28.5.2-alpine3.22")
-    help_cpu_lim= optional(string, "100m")
-    help_cpu_req= optional(string, "100m")
-    help_mem_lim= optional(string, "128Mi")
-    help_mem_req= optional(string, "128Mi")
-    help_image  = optional(string, "registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:alpine3.21-x86_64-v{{.Chart.AppVersion}}")
-    s3_cache    = optional(object({ 
-      path             = string
-      shared           = bool
-      server_address   = string
-      access_key       = string
-      secret_key       = string
-      bucket_name      = string
-      bucket_location  = string
+    cpu_lim      = optional(string, "500m")
+    cpu_req      = optional(string, "200m")
+    mem_lim      = optional(string, "1Gi")
+    mem_req      = optional(string, "512Mi")
+    image        = optional(string, "28.5.2-alpine3.22")
+    help_cpu_lim = optional(string, "100m")
+    help_cpu_req = optional(string, "100m")
+    help_mem_lim = optional(string, "128Mi")
+    help_mem_req = optional(string, "128Mi")
+    help_image   = optional(string, "registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:alpine3.21-x86_64-v{{.Chart.AppVersion}}")
+    s3_cache = optional(object({
+      path            = string
+      shared          = bool
+      server_address  = string
+      access_key      = string
+      secret_key      = string
+      bucket_name     = string
+      bucket_location = string
     }), null)
   })
   description = "params for runners.kubernetes"
@@ -105,7 +105,7 @@ variable "runner_config" {
 
 variable "rbac_rules" {
   type        = string
-  default = <<EOF
+  default     = <<EOF
 rules:
   - apiGroups: ["*"]
     resources: ["pods","pods/attach","pods/exec","serviceaccounts","services","namespaces"]

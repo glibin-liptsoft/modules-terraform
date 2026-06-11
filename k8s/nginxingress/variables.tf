@@ -52,8 +52,8 @@ variable "default_backend_override" {
 }
 
 variable "custom_http_errors" {
-  type    = string
-  default = null
+  type        = string
+  default     = null
   description = "list err cod which redirect custom err page, must default_backend_override=true"
 }
 

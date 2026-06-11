@@ -6,7 +6,7 @@ variable "name" {
 variable "ns_labels" {
   type        = map(string)
   description = "Map with labels for k8s namespace"
-  default = {}
+  default     = {}
 }
 
 variable "custom_helm_values" {

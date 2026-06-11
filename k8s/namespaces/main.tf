@@ -7,7 +7,7 @@ resource "kubernetes_namespace" "namespace" {
     labels = merge(
       try(each.value.labels, {}),
       {
-        "name" = each.key,
+        "name"              = each.key,
         "terraform-managed" = "true"
       }
     )
@@ -46,11 +46,11 @@ resource "kubernetes_limit_range" "limit_range" {
     dynamic "limit" {
       for_each = each.value.limit_range
       content {
-        type = limit.key
-        default = try(limit.value.default, null)
-        default_request = try(limit.value.default_request, null)
-        max = try(limit.value.max, null)
-        min = try(limit.value.min, null)
+        type                    = limit.key
+        default                 = try(limit.value.default, null)
+        default_request         = try(limit.value.default_request, null)
+        max                     = try(limit.value.max, null)
+        min                     = try(limit.value.min, null)
         max_limit_request_ratio = try(limit.value.max_limit_request_ratio, null)
       }
     }

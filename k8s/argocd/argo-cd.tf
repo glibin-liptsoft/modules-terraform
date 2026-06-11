@@ -6,9 +6,9 @@ resource "kubernetes_namespace" "this" {
 }
 
 resource "helm_release" "this" {
-  name       = var.name
-  chart      = "${path.module}/helm-chart"
-  namespace  = var.name
+  name      = var.name
+  chart     = "${path.module}/helm-chart"
+  namespace = var.name
 
   values = [
     local.helm_values,
@@ -22,15 +22,15 @@ resource "helm_release" "this" {
 
 locals {
   helm_values = templatefile("${path.module}/argo-cd.tftpl", {
-    argocd_domain             = var.argocd_domain
-    argocd_tag                = var.argocd_tag
-    argocd_admin_password     = var.argocd_admin_password
-    argocd_github_secret      = var.argocd_github_secret
-    argocd_gitlab_secret      = var.argocd_gitlab_secret
-    argocd_bitbucket_secret   = var.argocd_bitbucket_secret
-    argocd_repositories       = var.argocd_repositories
-    argocd_ingress_annot      = var.argocd_ingress_annot
-    argocd_ingress_class      = var.argocd_ingress_class
-    argocd_ingress_tls        = var.argocd_ingress_tls
+    argocd_domain           = var.argocd_domain
+    argocd_tag              = var.argocd_tag
+    argocd_admin_password   = var.argocd_admin_password
+    argocd_github_secret    = var.argocd_github_secret
+    argocd_gitlab_secret    = var.argocd_gitlab_secret
+    argocd_bitbucket_secret = var.argocd_bitbucket_secret
+    argocd_repositories     = var.argocd_repositories
+    argocd_ingress_annot    = var.argocd_ingress_annot
+    argocd_ingress_class    = var.argocd_ingress_class
+    argocd_ingress_tls      = var.argocd_ingress_tls
   })
 }

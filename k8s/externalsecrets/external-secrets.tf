@@ -6,9 +6,9 @@ resource "kubernetes_namespace" "this" {
 }
 
 resource "helm_release" "this" {
-  name       = var.name
-  chart      = "${path.module}/helm-chart"
-  namespace  = var.name
+  name      = var.name
+  chart     = "${path.module}/helm-chart"
+  namespace = var.name
 
   values = [
     try(var.custom_helm_values),
@@ -47,7 +47,7 @@ resource "kubernetes_manifest" "cluster_secret_store_yandexlockbox" {
     "apiVersion" = "external-secrets.io/v1beta1"
     "kind"       = "ClusterSecretStore"
     "metadata" = {
-      "name"      = "secret-store-yandexlockbox"
+      "name" = "secret-store-yandexlockbox"
     }
     "spec" = {
       "provider" = {
@@ -55,8 +55,8 @@ resource "kubernetes_manifest" "cluster_secret_store_yandexlockbox" {
           "auth" = {
             "authorizedKeySecretRef" = {
               "namespace" = "${var.name}"
-              "name" = "sa-creds"
-              "key" = "key"
+              "name"      = "sa-creds"
+              "key"       = "key"
             }
           }
         }
@@ -77,7 +77,7 @@ resource "kubernetes_manifest" "cluster_secret_store_yandexcertificatemanager" {
     "apiVersion" = "external-secrets.io/v1beta1"
     "kind"       = "ClusterSecretStore"
     "metadata" = {
-      "name"      = "secret-store-yandexcertificatemanager"
+      "name" = "secret-store-yandexcertificatemanager"
     }
     "spec" = {
       "provider" = {
@@ -85,8 +85,8 @@ resource "kubernetes_manifest" "cluster_secret_store_yandexcertificatemanager" {
           "auth" = {
             "authorizedKeySecretRef" = {
               "namespace" = "${var.name}"
-              "name" = "sa-creds"
-              "key" = "key"
+              "name"      = "sa-creds"
+              "key"       = "key"
             }
           }
         }
@@ -107,25 +107,25 @@ resource "kubernetes_manifest" "cluster_secret_store_vault_approle" {
     "apiVersion" = "external-secrets.io/v1beta1"
     "kind"       = "ClusterSecretStore"
     "metadata" = {
-      "name"       = "secret-store-vault-${each.key}-approle"
+      "name" = "secret-store-vault-${each.key}-approle"
     }
     "spec" = {
       "provider" = {
         "vault" = {
           "server" = "${each.value.server}"
-          "path" = "${each.key}"
+          "path"   = "${each.key}"
           "auth" = {
             "appRole" = {
               "path" = "${each.value.auth_path}"
               "roleRef" = {
                 "namespace" = "${each.value.namespace}"
-                "name" = "${each.value.role_name}"
-                "key" = "${each.value.role_key}"
+                "name"      = "${each.value.role_name}"
+                "key"       = "${each.value.role_key}"
               }
               "secretRef" = {
                 "namespace" = "${each.value.namespace}"
-                "name" = "${each.value.secret_name}"
-                "key" = "${each.value.secret_key}"
+                "name"      = "${each.value.secret_name}"
+                "key"       = "${each.value.secret_key}"
               }
             }
           }

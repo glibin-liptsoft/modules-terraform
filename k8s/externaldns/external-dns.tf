@@ -6,9 +6,9 @@ resource "kubernetes_namespace" "this" {
 }
 
 resource "helm_release" "this" {
-  name       = var.name
-  chart      = "${path.module}/helm-chart"
-  namespace  = var.name
+  name      = var.name
+  chart     = "${path.module}/helm-chart"
+  namespace = var.name
 
   values = [
     try(var.custom_helm_values),

@@ -67,5 +67,5 @@ module "yandex_compute_instance" {
     type = "network-ssd"
   }
 
-  depends_on = [ module.iam_accounts ]
+  depends_on = [module.iam_accounts]
 }

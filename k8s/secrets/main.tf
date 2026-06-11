@@ -5,16 +5,16 @@ resource "kubernetes_secret_v1" "secret" {
   }
 
   metadata {
-    name      = each.value.name
-    namespace = each.value.namespace
-    labels    = try(each.value.labels, {})
+    name        = each.value.name
+    namespace   = each.value.namespace
+    labels      = try(each.value.labels, {})
     annotations = try(each.value.annotations, {})
   }
 
-  data = try(each.value.data, {})
+  data        = try(each.value.data, {})
   binary_data = try(each.value.binary_data, {})
 
-  type = try(each.value.type, "Opaque")
+  type      = try(each.value.type, "Opaque")
   immutable = try(each.value.immutable, false)
 }
 

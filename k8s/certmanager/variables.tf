@@ -39,7 +39,7 @@ variable "acme" {
     folder_id = string,
     server    = string,
     email     = string,
-    eab       = optional(object({
+    eab = optional(object({
       key_id   = string,
       hmac_key = string
     }))

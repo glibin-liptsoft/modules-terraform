@@ -12,5 +12,5 @@ resource "yandex_resourcemanager_folder_iam_member" "default" {
 
 resource "yandex_iam_service_account_static_access_key" "default" {
   service_account_id = yandex_iam_service_account.default.id
-  description = "key for csi-s3 operator"
+  description        = "key for csi-s3 operator"
 }

@@ -3,10 +3,10 @@ data "yandex_client_config" "client" {}
 
 ### Locals
 locals {
-  folder_id = var.folder_id == null ? data.yandex_client_config.client.folder_id : var.folder_id
+  folder_id      = var.folder_id == null ? data.yandex_client_config.client.folder_id : var.folder_id
   enable_oslogin = lookup(var.enable_oslogin_or_ssh_keys, "enable-oslogin", "false")
-  ssh_key = lookup(var.enable_oslogin_or_ssh_keys, "ssh_key", null)
-  ssh_user = lookup(var.enable_oslogin_or_ssh_keys, "ssh_user", null)
+  ssh_key        = lookup(var.enable_oslogin_or_ssh_keys, "ssh_key", null)
+  ssh_user       = lookup(var.enable_oslogin_or_ssh_keys, "ssh_user", null)
 }
 data "yandex_compute_image" "image" {
   family = var.image_family

@@ -536,19 +536,19 @@ variable "lifecycle_rule" {
     }))
     filter = optional(object({
       object_size_greater_than = optional(number)
-      object_size_less_than = optional(number)
-      prefix = optional(string)
+      object_size_less_than    = optional(number)
+      prefix                   = optional(string)
       tag = optional(object({
-        key          = optional(string)
-        value          = optional(string)
+        key   = optional(string)
+        value = optional(string)
       }))
       and = optional(object({
         object_size_greater_than = optional(number)
-        object_size_less_than = optional(number)
-        prefix = optional(string)
+        object_size_less_than    = optional(number)
+        prefix                   = optional(string)
         tags = optional(object({
-          key          = optional(string)
-          value          = optional(string)
+          key   = optional(string)
+          value = optional(string)
         }))
       }))
     }))
